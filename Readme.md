@@ -30,7 +30,7 @@ Major Bot is a Node.js script created to automate various operations like, proce
    ```bash
    npm install
 
-4. urls.txt file in the root directory and add the list of URLs (one per line) that the bot will process.
+# 4. urls.txt file in the root directory and add the list of URLs (one per line) that the bot will process.
 
   ## step 1
    -open major apps and turn off all your connection , then refresh the major apps , then you will see full of urls there , copy and paste to urls.txt
