@@ -1,7 +1,7 @@
 {
-  "name": "Major",
+  "name": "major",
   "version": "1.0.0",
-  "description": "automation clear task , play games",
+  "description": "Bot for automating major tasks",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -9,9 +9,10 @@
   "dependencies": {
     "axios": "^1.4.0",
     "boxen": "^5.1.2",
-    "chalk": "^5.2.0",
+    "chalk": "^4.1.2",  
     "gradient-string": "^2.0.0",
-    "querystring": "^0.2.1"
+    "querystring": "^0.2.1",
+    "figlet": "^1.5.2"  
   },
   "devDependencies": {},
   "keywords": [],
