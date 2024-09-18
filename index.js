@@ -415,7 +415,7 @@ async function sendTaskRequest(token, taskId, accountInfo) {
 
         if (response.status === 400 && response.data.detail === "Task is already completed") {
             console.log(`${accountInfo}[SendTask]==>Task '${taskId}' is already completed.`);
-            console.log('Moving to the next task/account...'); // Add this here after return
+            console.log('Moving to the next task/account...'); 
             return;
         }
 
@@ -550,7 +550,7 @@ async function handle400Error(response, accountInfo, actionName) {
     if (response.data && response.data.detail && response.data.detail.blocked_until) {
         const blockedUntil = response.data.detail.blocked_until;
         const blockedTime = new Date(blockedUntil * 1000);
-        const waitTime = blockedTime - new Date() + 5 * 60 * 1000; // 
+        const waitTime = blockedTime - new Date() + 5 * 60 * 1000; 
         colorLog('warning', `${actionName} already completed. Waiting until: ${blockedTime}. Total wait: ${waitTime / 60000} minutes`, accountInfo);
         await new Promise(resolve => setTimeout(resolve, waitTime));
         return true; 
@@ -684,7 +684,7 @@ async function joinSquadRequest(url, accountInfo) {
 
          if (response.status === 400 && response.data.detail && response.data.detail.title === "User with is already a member of squad") {
             console.log(`${accountInfo}==>User is already a member of the squad.`);
-            console.log('Moving to the next task/account...');  // Add this here after return
+            console.log('Moving to the next task/account...');
             return;
         }
 
