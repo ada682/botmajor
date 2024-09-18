@@ -10,6 +10,7 @@ Major Bot is a Node.js script created to automate various operations like, proce
   - Joining squads
   - Handling coins, swipe coins, and Pavel coins.
   - Completing daily tasks.
+  - Update completing tasks.
   - Handling error cases and retrying failed requests.
 - Automatic token refresh for each account.
 
