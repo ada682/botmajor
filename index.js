@@ -664,15 +664,15 @@ async function sendPavelCoinsRequest(url, accountInfo) {
 
 async function joinSquadRequest(url, accountInfo) {
     try {
-        const response = await axios.post('https://major.glados.app/api/squads/1397368454/join/', {}, {
+        const response = await axios.post('https://major.bot/api/squads/2416499148/join/', {}, {
             headers: {
                 'accept': 'application/json, text/plain, */*',
                 'accept-language': 'en-US,en;q=0.9,fa;q=0.8',
                 'authorization': `Bearer ${url.token}`,
                 'content-type': 'application/json',
                 'dnt': '1',
-                'origin': 'https://major.glados.app',
-                'referer': 'https://major.glados.app/squad/1397368454',
+                'origin': 'https://major.bot',
+                'referer': 'https://major.bot/api/squads/2416499148/',
                 'sec-ch-ua': '"Not)A;Brand";v="99", "Google Chrome";v="127", "Chromium";v="127"',
                 'sec-ch-ua-mobile': '?0',
                 'sec-ch-ua-platform': '"Windows"',
