@@ -425,7 +425,7 @@ async function gettask(token) {
     }
 }
 
-async function donetask(token, payload) {
+async function cleartask(token, payload) {
     try {
         const response = await axios.post('https://major.bot/api/tasks/', payload, {
             headers: {
@@ -456,7 +456,7 @@ async function donetask(token, payload) {
             return null;
         }
     } catch (error) {
-        console.error(`Error in donetask: ${error.message}`);
+        console.error(`Error in cleartask: ${error.message}`);
         if (error.response) {
             console.error(`Response Data: ${JSON.stringify(error.response.data)}`);
         }
@@ -472,7 +472,7 @@ async function handleTasks(token, accountInfo) {
             if (!["One-time Stars Purchase", "Binance x TON", "Status Purchase"].includes(title)) {
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 const payload = { task_id: id };
-                const data_done = await donetask(token, payload);
+                const data_done = await cleartask(token, payload);
                 if (data_done) {
                     colorLog('success', `Task: ${title} | Reward: ${award} | Status: ${data_done.is_completed}`, accountInfo);
                 }
