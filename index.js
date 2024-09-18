@@ -108,6 +108,12 @@ async function processUrl(url) {
     }
 
     try {
+        await handleTasks(url.token, accountInfo);
+    } catch (error) {
+        colorLog('error', `Error in handleTasks: ${error.message}`, accountInfo);
+    }
+
+    try {
         await sendVisitRequest(url, accountInfo);
     } catch (error) {
         colorLog('error', `Error in sendVisitRequest: ${error.message}`, accountInfo);
@@ -387,6 +393,94 @@ async function sendSecondRequest(token, accountInfo) {
 async function downloadTaskTitles(url) {
     const response = await axios.get(url);
     return response.data.split(/\r?\n/).filter(line => line.trim() !== '');
+}
+
+async function gettask(token) {
+    try {
+        const response = await axios.get('https://major.bot/api/tasks/?is_daily=true', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'accept': 'application/json, text/plain, */*',
+                'accept-language': 'en-US,en;q=0.9',
+                'referer': 'https://major.bot/earn',
+                'sec-ch-ua': '"Not)A;Brand";v="99", "Microsoft Edge";v="127", "Chromium";v="127", "Microsoft Edge WebView2";v="127"',
+                'sec-ch-ua-mobile': '?0',
+                'sec-ch-ua-platform': '"Windows"',
+                'sec-fetch-dest': 'empty',
+                'sec-fetch-mode': 'cors',
+                'sec-fetch-site': 'same-origin',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 Edg/127.0.0.0'
+            }
+        });
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.log(`Failed to get tasks. Status: ${response.status}`);
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error in gettask: ${error.message}`);
+        return null;
+    }
+}
+
+async function donetask(token, payload) {
+    try {
+        const response = await axios.post('https://major.bot/api/tasks/', payload, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'accept': 'application/json, text/plain, */*',
+                'accept-language': 'en-US,en;q=0.9',
+                'content-type': 'application/json',
+                'origin': 'https://major.bot',
+                'referer': 'https://major.bot/earn',
+                'sec-ch-ua': '"Not)A;Brand";v="99", "Microsoft Edge";v="127", "Chromium";v="127"',
+                'sec-ch-ua-mobile': '?0',
+                'sec-ch-ua-platform': '"Windows"',
+                'sec-fetch-dest': 'empty',
+                'sec-fetch-mode': 'cors',
+                'sec-fetch-site': 'same-origin',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 Edg/127.0.0.0'
+            }
+        });
+
+        if (response.status === 200) {
+            return response.data;
+        } else if (response.status === 201) {
+            console.log(`Task created successfully. Status: ${response.status}`);
+            return response.data;
+        } else {
+            console.log(`Failed to complete task. Status: ${response.status}`);
+            console.log(response.data);
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error in donetask: ${error.message}`);
+        if (error.response) {
+            console.error(`Response Data: ${JSON.stringify(error.response.data)}`);
+        }
+        return null;
+    }
+}
+
+async function handleTasks(token, accountInfo) {
+    const data_task = await gettask(token);
+    if (data_task && data_task.length > 0) {
+        for (const task of data_task) {
+            const { id, type, title, award } = task;
+            if (!["One-time Stars Purchase", "Binance x TON", "Status Purchase"].includes(title)) {
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                const payload = { task_id: id };
+                const data_done = await donetask(token, payload);
+                if (data_done) {
+                    colorLog('success', `Task: ${title} | Reward: ${award} | Status: ${data_done.is_completed}`, accountInfo);
+                }
+            }
+        }
+    } else {
+        colorLog('info', 'No tasks available', accountInfo);
+    }
 }
 
 async function sendTaskRequest(token, taskId, accountInfo) {
