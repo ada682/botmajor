@@ -40,7 +40,7 @@ Major Bot is a Node.js script created to automate various operations like, proce
    ```bash
    npm start
 
-License
+ # License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 Feel free to modify or expand on this as needed!
