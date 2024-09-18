@@ -32,8 +32,10 @@ Major Bot is a Node.js script created to automate various operations like, proce
 
 4. urls.txt file in the root directory and add the list of URLs (one per line) that the bot will process.
 
-   step 1
+  ## step 1
    -open major apps and turn off all your connection , then refresh the major apps , then you will see full of urls there , copy and paste to urls.txt
+
+  ## step 2
    -on telegramweb = open major - inspect element - scroll up - you will see iframe , - copy that full of url , then paste to urls.txt
 
    example on urls.txt file
