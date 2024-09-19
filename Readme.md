@@ -19,12 +19,12 @@ Major Bot is a Node.js script created to automate various operations like, proce
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/ada682/major-bot.git
+   git clone https://github.com/ada682/botmajor.git
 
 2. Navigate to the project directory:
 
    ```bash
-   cd major-bot
+   cd botmajor
 
 3. Install dependencies:
 
